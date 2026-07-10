@@ -26,6 +26,7 @@
             --text-main: #2b2b2b;
             --text-muted: #76737a;
             --border-color: #eae7ec;
+            --purchase-accent: #ff477e; /* 눈에 띄는 구매하기 색상 */
         }
 
         body {
@@ -38,6 +39,24 @@
 
         .hidden {
             display: none !important;
+        }
+
+        /* ==========================================
+           NOTICE BANNER (계좌 안내 추가)
+           ========================================== */
+        .deposit-notice {
+            background-color: var(--point-dark);
+            color: #ffffff;
+            text-align: center;
+            padding: 0.8rem 1rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .deposit-notice strong {
+            color: var(--primary-pink);
+            font-weight: 700;
         }
 
         /* ==========================================
@@ -185,7 +204,7 @@
         }
 
         /* ==========================================
-           DETAIL PAGE
+           DETAIL PAGE & ORDER FORM
            ========================================== */
         #detail-page {
             max-width: 900px;
@@ -222,6 +241,7 @@
             padding: 4rem;
             border: 1px solid var(--border-color);
             box-shadow: 0 20px 40px rgba(118, 115, 122, 0.08);
+            margin-bottom: 3rem;
         }
 
         .player-visual {
@@ -321,6 +341,7 @@
             padding: 1.5rem;
             border-radius: 12px;
             border-left: 4px solid var(--primary-pink);
+            margin-bottom: 2rem;
         }
 
         .liner-notes h3 {
@@ -335,6 +356,94 @@
             color: var(--text-main);
             line-height: 1.7;
             word-break: keep-all;
+        }
+
+        /* 눈에 확 띄는 구매하기 버튼 디자인 */
+        .btn-purchase-trigger {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #ff477e, #ff6b6b);
+            color: white;
+            border: none;
+            padding: 1.2rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(255, 71, 126, 0.3);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .btn-purchase-trigger:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 26px rgba(255, 71, 126, 0.4);
+            filter: brightness(1.05);
+        }
+
+        /* 주문 폼 섹션 스타일 */
+        .order-section {
+            background: #ffffff;
+            border: 2px solid var(--primary-pink);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-top: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+
+        .order-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--point-dark);
+            border-bottom: 2px solid var(--point-dark);
+            padding-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            background-color: var(--bg-main);
+            transition: border-color 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--purchase-accent);
+            background-color: #ffffff;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: var(--point-dark);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 1rem;
+        }
+
+        .btn-submit:hover {
+            background-color: #444444;
         }
 
         /* ==========================================
@@ -359,10 +468,18 @@
             .brand-title {
                 font-size: 2rem;
             }
+
+            .order-section {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
+
+    <div class="deposit-notice">
+        🎵 도서 구매 입금 안내: <strong>하나은행 12989172932607 - 박주영</strong> 으로 입금해 주세요.
+    </div>
 
     <nav class="shop-nav">
         <div class="logo"> 그 사람의 하나님 : B-Side Track</div>
@@ -413,33 +530,79 @@
                         <h3>LINER NOTES (추천 이유)</h3>
                         <p id="detail-description"></p>
                     </div>
+
+                    <button type="button" class="btn-purchase-trigger" onclick="scrollToOrderForm()">💝 이 책 구매하기</button>
                 </div>
             </div>
+
+            <div class="order-section" id="order-form-section">
+                <h3>💿 BOOK ALBUM ORDER</h3>
+                <form id="purchaseForm" action="https://docs.google.com/forms/d/e/본인의_구글폼_아이디/formResponse" method="POST" target="hidden_iframe" onsubmit="return handleFormSubmit()">
+                    
+                    <div class="form-group">
+                        <label>선택한 도서</label>
+                        <input type="text" id="form-book-title" name="entry.11111111" class="form-control" readonly style="background-color: #f1edf3; font-weight: bold;">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="buyer-name">구매자 이름 (서술형)</label>
+                        <input type="text" id="buyer-name" name="entry.22222222" class="form-control" placeholder="이름을 입력해 주세요" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="buyer-group">산 (객관식 선택)</label>
+                        <select id="buyer-group" name="entry.33333333" class="form-control" required>
+                            <option value="" disabled selected>본인의 산을 선택해 주세요</option>
+                            <option value="곽민서">곽민서</option>
+                            <option value="국해연">국해연</option>
+                            <option value="정은교">정은교</option>
+                            <option value="이혜빈">이혜빈</option>
+                            <option value="손지후">손지후</option>
+                            <option value="최의준">최의준</option>
+                            <option value="김예원">김예원</option>
+                            <option value="오희원">오희원</option>
+                            <option value="박주영">박주영</option>
+                            <option value="김지형">김지형</option>
+                            <option value="이은찬">이은찬</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="buy-quantity">구매 수량</label>
+                        <input type="number" id="buy-quantity" name="entry.44444444" class="form-control" min="1" value="1" required>
+                    </div>
+
+                    <button type="submit" class="btn-submit">주문서 제출하기</button>
+                </form>
+                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+            </div>
+
         </div>
     </section>
 
     <script>
+        // 요구사항대로 image1.jpg ~ image20.jpg로 변경 바인딩 완료
         const books = [
-            {"id": 1, "title": "하나님은 누구를 사랑하실까?", "referrer": "이하임", "image": "book1.jpg", "author": "필 비셔", "publisher": "IVP", "description": "동화책임에도 새친구나 말씀이 어려운 자들이 쉽게 이해하기 쉽도록 그림책으로 되어 있어 더욱 인상에 깊은 책이기에 추천합니다!"},
-            {"id": 2, "title": "나를 따르라", "referrer": "박민혁", "image": "book2.jpg", "author": "디트리히 본회퍼", "publisher": "복 있는 사람", "description": "목사님들 설교에서 인용되는 값싼 은혜라는 표현을 이해하기 위한 책이며 이 부분에 대해 지금 세대가 생각해 볼 필요가 있다고 생각해서 추천합니다"},
-            {"id": 3, "title": "쉽게 읽는 기독교강요", "referrer": "박민혁", "image": "book3.jpg", "author": "존 칼빈", "publisher": "생명의말씀사", "description": "제자훈련 중 배우게 되는 내용의 기초가 되며 개신교라는 종교를 이해하기 위해 한번쯤 읽어볼 만하다고 생각했습니다. 원본은 평신도가 읽을 책은 아닌 것 같아 요약 버전을 채택했습니다."},
-            {"id": 4, "title": "고통의 문제", "referrer": "박민혁", "image": "book4.jpg", "author": "C.S. 루이스", "publisher": "홍성사", "description": "C. S. 루이스의 책을 한 권쯤 소개하고 싶었습니다. 때때로 하나님의 선하심과 고통의 문제가 겹쳐 보일 때 하나님을 향한 의문을 가지게 되는 모습을 보며 이 책이 조금은 답이 될 수 있지 않을까 해서 채택했습니다. 또한 고난을 겪는 지체들에게 도움이 될 것 같아 추천하고 싶었습니다."},
-            {"id": 5, "title": "제자도", "referrer": "박민혁", "image": "book5.jpg", "author": "존 스토트", "publisher": "IVP", "description": "단순한 그리스도인이 아닌 제자가 되어야 한다는 점에서 어떤 제자가 될 것인가에 대한 좋은 지침서가 될 것이라 생각해서 채택했습니다."},
-            {"id": 6, "title": "탕부 하나님", "referrer": "박민혁", "image": "book6.jpg", "author": "팀 켈러", "publisher": "두란노", "description": "팀 켈러 목사님의 좋은 책이 정말 많지만 탕자의 비유를 묵상하게 되면서 이 책으로 선택하게 되었습니다."},
-            {"id": 7, "title": "가상칠언", "referrer": "박민혁", "image": "book7.jpg", "author": "A. W. 핑크", "publisher": "세복", "description": "특특새 첫날 설교에서 소개되어 가상칠언을 제대로 묵상해보고자 추천했습니다."},
-            {"id": 8, "title": "죄 죽이기", "referrer": "이지환", "image": "book8.jpg", "author": "존 오웬", "publisher": "CH북스", "description": "인간의 가장 큰 문제인 죄를 이기는 방법에 대해 다룬 청교도 도서입니다. 우리가 어떻게 경건 생활을 이어나가야 하는지 알고 실천에 옮길 수 있습니다."},
-            {"id": 9, "title": "전능자의 그늘", "referrer": "손주현", "image": "book9.jpg", "author": "엘리자베스 엘리엇", "publisher": "복있는사람", "description": "선교팀이거나 선교에 대해 알아보고 싶은 사람들을 위해 추천합니다."},
-            {"id": 10, "title": "연애학교", "referrer": "박주영", "image": "book10.jpg", "author": "게리 토마스", "publisher": "CUP", "description": "공동체에 연애 관심이 있는 사람이 많은 만큼 올바른 연애 가치관을 배울 수 있는 책이 필요합니다"},
-            {"id": 11, "title": "관계수업", "referrer": "송예원", "image": "book11.jpg", "author": "게리 토마스", "publisher": "CUP", "description": "하나님과의 관계를 바탕으로 건강한 인간관계를 만들어 가는 데 도움이 되는 책입니다."},
-            {"id": 12, "title": "슬로우 영성", "referrer": "송예원", "image": "book12.jpg", "author": "존 마크 코머", "publisher": "두란노", "description": "바쁜 일상 속에서도 하나님과 함께하는 삶의 리듬을 회복하도록 돕는 책입니다."},
-            {"id": 13, "title": "선하신 하나님", "referrer": "김재달 목사님", "image": "book13.jpg", "author": "마이클 리브스", "publisher": "복있는사람", "description": "삼위일체 교리와 기독론을 우리 삶과 신앙에 이토록 적실하게 쓴 책을 본 적이 없습니다. :)"},
-            {"id": 14, "title": "기도는 예배다", "referrer": "이정우 목사님", "image": "book14.jpg", "author": "존 파이퍼, 존 맥아더, R. C. 스프로울", "publisher": "생명의말씀사", "description": "기도는 아무리 강조해도 지나치지 않습니다. 하지만 기도가 무엇인지 잘 모르는 경우가 많습니다. 수련회에서 기도 많이 하셔야 하실 텐데 기도에 관한 책 중 쉽게 읽을만한 책을 한 권 추천해 드립니다."},
-            {"id": 15, "title": "신의 열애", "referrer": "전홍구 목사님", "image": "book15.jpg", "author": "진 에드워드", "publisher": "죠이북스", "description": "겉표지가 이쁩니다. 안의 내용은 따뜻합니다."},
-            {"id": 16, "title": "팀 켈러의 예수, 예수", "referrer": "연한흠 목사님", "image": "book16.jpg", "author": "팀 켈러", "publisher": "두란노", "description": "담당 목사님께서 강력하게 추천하시는 양서입니다. 수련회 기간 깊은 은혜의 시간을 도울 특별한 추천 앨범입니다."},
-            {"id": 17, "title": "그리스도 우리의 생명", "referrer": "김재달 목사님", "image": "book17.jpg", "author": "마이클 리브스", "publisher": "복있는사람", "description": "삼위일체 교리와 기독론을 우리 삶과 신앙에 이토록 적실하게 쓴 책을 본 적이 없습니다. :)"},
-            {"id": 18, "title": "예배", "referrer": "간사즈", "image": "book18.jpg", "author": "존 맥아더", "publisher": "아가페", "description": "수련회 북테이블 기획팀(간사즈)에서 청년들의 온전한 예배 회복과 뜨거운 은혜의 시간을 위해 선정한 앨범입니다."},
-            {"id": 19, "title": "내 마음 그리스도의 집", "referrer": "간사즈", "image": "book19.jpg", "author": "로버트 멍어", "publisher": "IVP", "description": "수련회 북테이블 기획팀(간사즈)에서 강력히 추천하는 스테디셀러로, 나의 숨겨진 방까지 전부 주님께 내어드리는 깊은 영적 결단을 도와줍니다."},
-            {"id": 20, "title": "예수님처럼 친구가 되어 주라", "referrer": "간사즈", "image": "book20.jpg", "author": "스캇 솔즈", "publisher": "두란노", "description": "수련회 북테이블 기획팀(간사즈)에서 추천하는 도서로, 무너진 인간관계를 회복하고 공동체 안에서 진정한 사랑을 실천하도록 돕는 트랙입니다."}
+            {"id": 1, "title": "하나님은 누구를 사랑하실까?", "referrer": "이하임", "image": "image1.jpg", "author": "필 비셔", "publisher": "IVP", "description": "동화책임에도 새친구나 말씀이 어려운 자들이 쉽게 이해하기 쉽도록 그림책으로 되어 있어 더욱 인상에 깊은 책이기에 추천합니다!"},
+            {"id": 2, "title": "나를 따르라", "referrer": "박민혁", "image": "image2.jpg", "author": "디트리히 본회퍼", "publisher": "복 있는 사람", "description": "목사님들 설교에서 인용되는 값싼 은혜라는 표현을 이해하기 위한 책이며 이 부분에 대해 지금 세대가 생각해 볼 필요가 있다고 생각해서 추천합니다"},
+            {"id": 3, "title": "쉽게 읽는 기독교강요", "referrer": "박민혁", "image": "image3.jpg", "author": "존 칼빈", "publisher": "생명의말씀사", "description": "제자훈련 중 배우게 되는 내용의 기초가 되며 개신교라는 종교를 이해하기 위해 한번쯤 읽어볼 만하다고 생각했습니다. 원본은 평신도가 읽을 책은 아닌 것 같아 요약 버전을 채택했습니다."},
+            {"id": 4, "title": "고통의 문제", "referrer": "박민혁", "image": "image4.jpg", "author": "C.S. 루이스", "publisher": "홍성사", "description": "C. S. 루이스의 책을 한 권쯤 소개하고 싶었습니다. 때때로 하나님의 선하심과 고통의 문제가 겹쳐 보일 때 하나님을 향한 의문을 가지게 되는 모습을 보며 이 책이 조금은 답이 될 수 있지 않을까 해서 채택했습니다. 또한 고난을 겪는 지체들에게 도움이 될 것 같아 추천하고 싶었습니다."},
+            {"id": 5, "title": "제자도", "referrer": "박민혁", "image": "image5.jpg", "author": "존 스토트", "publisher": "IVP", "description": "단순한 그리스도인이 아닌 제자가 되어야 한다는 점에서 어떤 제자가 될 것인가에 대한 좋은 지침서가 될 것이라 생각해서 채택했습니다."},
+            {"id": 6, "title": "탕부 하나님", "referrer": "박민혁", "image": "image6.jpg", "author": "팀 켈러", "publisher": "두란노", "description": "팀 켈러 목사님의 좋은 책이 정말 많지만 탕자의 비유를 묵상하게 되면서 이 책으로 선택하게 되었습니다."},
+            {"id": 7, "title": "가상칠언", "referrer": "박민혁", "image": "image7.jpg", "author": "A. W. 핑크", "publisher": "세복", "description": "특특새 첫날 설교에서 소개되어 가상칠언을 제대로 묵상해보고자 추천했습니다."},
+            {"id": 8, "title": "죄 죽이기", "referrer": "이지환", "image": "image8.jpg", "author": "존 오웬", "publisher": "CH북스", "description": "인간의 가장 큰 문제인 죄를 이기는 방법에 대해 다룬 청교도 도서입니다. 우리가 어떻게 경건 생활을 이어나가야 하는지 알고 실천에 옮길 수 있습니다."},
+            {"id": 9, "title": "전능자의 그늘", "referrer": "손주현", "image": "image9.jpg", "author": "엘리자베스 엘리엇", "publisher": "복있는사람", "description": "선교팀이거나 선교에 대해 알아보고 싶은 사람들을 위해 추천합니다."},
+            {"id": 10, "title": "연애학교", "referrer": "박주영", "image": "image10.jpg", "author": "게리 토마스", "publisher": "CUP", "description": "공동체에 연애 관심이 있는 사람이 많은 만큼 올바른 연애 가치관을 배울 수 있는 책이 필요합니다"},
+            {"id": 11, "title": "관계수업", "referrer": "송예원", "image": "image11.jpg", "author": "게리 토마스", "publisher": "CUP", "description": "하나님과의 관계를 바탕으로 건강한 인간관계를 만들어 가는 데 도움이 되는 책입니다."},
+            {"id": 12, "title": "슬로우 영성", "referrer": "송예원", "image": "image12.jpg", "author": "존 마크 코머", "publisher": "두란노", "description": "바쁜 일상 속에서도 하나님과 함께하는 삶의 리듬을 회복하도록 돕는 책입니다."},
+            {"id": 13, "title": "선하신 하나님", "referrer": "김재달 목사님", "image": "image13.jpg", "author": "마이클 리브스", "publisher": "복있는사람", "description": "삼위일체 교리와 기독론을 우리 삶과 신앙에 이토록 적실하게 쓴 책을 본 적이 없습니다. :)"},
+            {"id": 14, "title": "기도는 예배다", "referrer": "이정우 목사님", "image": "image14.jpg", "author": "존 파이퍼, 존 맥아더, R. C. 스프로울", "publisher": "생명의말씀사", "description": "기도는 아무리 강조해도 지나치지 않습니다. 하지만 기도가 무엇인지 잘 모르는 경우가 많습니다. 수련회에서 기도 많이 하셔야 하실 텐데 기도에 관한 책 중 쉽게 읽을만한 책을 한 권 추천해 드립니다."},
+            {"id": 15, "title": "신의 열애", "referrer": "전홍구 목사님", "image": "image15.jpg", "author": "진 에드워드", "publisher": "죠이북스", "description": "겉표지가 이쁩니다. 안의 내용은 따뜻합니다."},
+            {"id": 16, "title": "팀 켈러의 예수, 예수", "referrer": "연한흠 목사님", "image": "image16.jpg", "author": "팀 켈러", "publisher": "두란노", "description": "담당 목사님께서 강력하게 추천하시는 양서입니다. 수련회 기간 깊은 은혜의 시간을 도울 특별한 추천 앨범입니다."},
+            {"id": 17, "title": "그리스도 우리의 생명", "referrer": "김재달 목사님", "image": "image17.jpg", "author": "마이클 리브스", "publisher": "복있는사람", "description": "삼위일체 교리와 기독론을 우리 삶과 신앙에 이토록 적실하게 쓴 책을 본 적이 없습니다. :)"},
+            {"id": 18, "title": "예배", "referrer": "간사즈", "image": "image18.jpg", "author": "존 맥아더", "publisher": "아가페", "description": "수련회 북테이블 기획팀(간사즈)에서 청년들의 온전한 예배 회복과 뜨거운 은혜의 시간을 위해 선정한 앨범입니다."},
+            {"id": 19, "title": "내 마음 그리스도의 집", "referrer": "간사즈", "image": "image19.jpg", "author": "로버트 멍어", "publisher": "IVP", "description": "수련회 북테이블 기획팀(간사즈)에서 강력히 추천하는 스테디셀러로, 나의 숨겨진 방까지 전부 주님께 내어드리는 깊은 영적 결단을 도와줍니다."},
+            {"id": 20, "title": "예수님처럼 친구가 되어 주라", "referrer": "간사즈", "image": "image20.jpg", "author": "스캇 솔즈", "publisher": "두란노", "description": "수련회 북테이블 기획팀(간사즈)에서 추천하는 도서로, 무너진 인간관계를 회복하고 공동체 안에서 진정한 사랑을 실천하도록 돕는 트랙입니다."}
         ];
 
         const mainPage = document.getElementById('main-page');
@@ -478,9 +641,32 @@
             document.getElementById('detail-referrer').innerText = book.referrer;
             document.getElementById('detail-description').innerText = book.description;
 
+            // 상세 페이지 진입 시 주문 폼에 책 제목 자동 입력 및 폼 초기화
+            document.getElementById('form-book-title').value = book.title;
+            document.getElementById('buyer-name').value = '';
+            document.getElementById('buyer-group').selectedIndex = 0;
+            document.getElementById('buy-quantity').value = 1;
+
             mainPage.classList.add('hidden');
             detailPage.classList.remove('hidden');
             window.scrollTo(0, 0);
+        }
+
+        // 구매하기 버튼 클릭 시 하단 주문 폼으로 부드럽게 스크롤해주는 함수
+        function scrollToOrderForm() {
+            const element = document.getElementById('order-form-section');
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 주문 제출 성공 핸들링
+        function handleFormSubmit() {
+            const name = document.getElementById('buyer-name').value;
+            const bookTitle = document.getElementById('form-book-title').value;
+            
+            if(!name) return false;
+
+            alert(`${name}님, [${bookTitle}] 주문서 제출이 완료되었습니다! 계좌로 입금을 완료해 주세요.`);
+            return true;
         }
 
         backBtn.onclick = () => {
