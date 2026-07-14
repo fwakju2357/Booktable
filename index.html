@@ -42,7 +42,7 @@
         }
 
         /* ==========================================
-           NOTICE BANNER (계좌 안내)
+           NOTICE BANNER (계좌 안내 - 오직 번호만 복사)
            ========================================== */
         .deposit-notice {
             background-color: var(--point-dark);
@@ -139,10 +139,10 @@
         .album-card {
             background-color: var(--bg-card);
             border-radius: 16px;
-            padding: 2.5rem 2.2rem; /* 사방 말씀 프레임 공간 확보을 위한 패딩 조정 */
+            padding: 2.2rem 2rem;
             border: 1px solid var(--border-color);
             cursor: pointer;
-            position: relative;
+            position: relative; /* SVG 안착용 기준점 */
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
             text-align: center;
             overflow: hidden;
@@ -154,43 +154,10 @@
             border-color: #d1cbd4;
         }
 
-        /* 4면을 회전하며 감싸는 사각형 말씀 프레임 스타일 */
-        .scripture-frame {
-            font-size: 0.55rem;
-            color: #bcaec4;
-            font-family: 'DM Serif Display', serif;
-            position: absolute;
-            opacity: 0.65;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-        }
-        .scripture-frame.top {
-            top: 0.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .scripture-frame.bottom {
-            bottom: 0.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .scripture-frame.left {
-            top: 50%;
-            left: 0.5rem;
-            transform: translate(-50%, -50%) rotate(-90deg);
-            transform-origin: center center;
-        }
-        .scripture-frame.right {
-            top: 50%;
-            right: 0.5rem;
-            transform: translate(50%, -50%) rotate(90deg);
-            transform-origin: center center;
-        }
-
         .album-case-wrapper {
             position: relative;
-            width: 85%;
-            margin: 0 auto 1.5rem auto;
+            width: 82%;
+            margin: 0.6rem auto 1.5rem auto;
             aspect-ratio: 1 / 1;
         }
 
@@ -230,6 +197,8 @@
 
         .album-details {
             padding-top: 0.5rem;
+            position: relative;
+            z-index: 2;
         }
 
         .album-title {
@@ -249,7 +218,7 @@
         }
 
         /* ==========================================
-           DETAIL PAGE (가로 레이아웃 및 본문 확장)
+           DETAIL PAGE (가로폭 확장 레이아웃)
            ========================================== */
         #detail-page {
             max-width: 1100px;
@@ -283,10 +252,10 @@
             align-items: center;
             background-color: var(--bg-card);
             border-radius: 24px;
-            padding: 5rem 4.5rem; /* 사방 프레임 텍스트 배치를 위해 패딩 확대 */
+            padding: 5rem 4.5rem;
             border: 1px solid var(--border-color);
             box-shadow: 0 20px 40px rgba(118, 115, 122, 0.08);
-            position: relative;
+            position: relative; /* SVG 안착용 기준점 */
             overflow: hidden;
         }
 
@@ -295,6 +264,8 @@
             display: flex;
             justify-content: center;
             min-width: 280px;
+            position: relative;
+            z-index: 2;
         }
 
         .cd-case {
@@ -334,6 +305,8 @@
 
         .player-info {
             flex: 1.5;
+            position: relative;
+            z-index: 2;
         }
 
         .track-tag {
@@ -382,7 +355,7 @@
             font-weight: 500;
         }
 
-        /* 추천 이유 박스 확장 및 가독성 최적화 */
+        /* 추천 이유 박스 최적화 */
         .liner-notes {
             background-color: var(--bg-main);
             padding: 1.8rem;
@@ -408,7 +381,6 @@
             text-align: justify;
         }
 
-        /* 구매하기 링크 버튼 디자인 */
         .btn-purchase-link {
             display: block;
             width: 100%;
@@ -436,7 +408,7 @@
         @media (max-width: 850px) {
             .player-layout {
                 flex-direction: column;
-                padding: 3.5rem 1.5rem;
+                padding: 4rem 2rem;
                 gap: 2.5rem;
             }
             
@@ -452,17 +424,12 @@
             .brand-title {
                 font-size: 2rem;
             }
-            
-            /* 모바일 환경에서 좌우 말씀 프레임 겹침 방지 가시성 조정 */
-            .scripture-frame.left, .scripture-frame.right {
-                opacity: 0.3;
-            }
         }
     </style>
 </head>
 <body>
 
-    <!-- 계좌번호 텍스트만 복사되도록 매개변수 수정 -->
+    <!-- 터치 시 숫자 정보만 매개변수로 전송 -->
     <div class="deposit-notice">
         🎵 도서 구매 입금 안내: <strong onclick="copyToClipboard('12989172932607')" title="터치하여 계좌번호 복사">하나은행 12989172932607 - 박주영</strong> 을 터치하시면 복사됩니다.
     </div>
@@ -485,13 +452,8 @@
         <div class="detail-container">
             <button id="back-btn">← BACK TO LIST</button>
             
-            <div class="player-layout">
-                <!-- 세부 정보 테두리를 사방으로 회전하며 감싸는 말씀 프레임 -->
-                <div class="scripture-frame top">Therefore, since we are surrounded</div>
-                <div class="scripture-frame right">by such a great cloud of witnesses,</div>
-                <div class="scripture-frame bottom">let us run with perseverance</div>
-                <div class="scripture-frame left">the race marked out for us. - Hebrews 12:1</div>
-
+            <!-- 끊김 없는 말씀 프레임이 적용될 타겟 컨테이너 -->
+            <div class="player-layout" id="detail-player-box">
                 <div class="player-visual">
                     <div class="cd-case">
                         <img id="detail-img" src="" alt="앨범 재킷">
@@ -558,12 +520,16 @@
             {"id": 19, "title": "내 마음 그리스도의 집", "referrer": "간사즈", "image": "image19.jpg", "author": "로버트 멍어", "publisher": "IVP", "price": "8,000원", "description": "예수님에 대해 막 알아가고 계신 분에게도, 신앙생활을 오래 해온 분들에게도 추천합니다.어려운 말 하나 없이 그림과 함께 보는 짧고 단순한 이야기이지만, 예수님을 모르고, 잊고, 떄로는 피하며 살던 모든 순간에 여전히 애닳는 사랑으로 여러분을 기다리고 계시는 예수님을 마주하게 되는 책입니다."}
         ];
 
+        // 회전하며 네 모서리를 감쌀 고정 성경말씀 텍스트 정의
+        const scriptureText = "Therefore, since we are surrounded by such a great cloud of witnesses, let us throw off everything that hinders and the sin that so easily entangles. And let us run with perseverance the race marked out for us. Hebrews 12:1 — ";
+
         const mainPage = document.getElementById('main-page');
         const detailPage = document.getElementById('detail-page');
         const bookList = document.getElementById('book-list');
         const backBtn = document.getElementById('back-btn');
+        const detailPlayerBox = document.getElementById('detail-player-box');
 
-        // 클립보드 복사 함수 (알림 문구도 번호만 노출되도록 깔끔하게 변경)
+        // 오직 숫자만 깔끔하게 복사되도록 핸들링
         function copyToClipboard(accountNumber) {
             navigator.clipboard.writeText(accountNumber).then(() => {
                 alert("계좌번호가 복사되었습니다!\n" + accountNumber);
@@ -578,6 +544,40 @@
             });
         }
 
+        // 박스 실시간 크기에 맞춰 끊김 없이 돌아가는 SVG 텍스트 패스를 생성하는 함수
+        function applySeamlessTextBorder(element, text) {
+            if (!element) return;
+            
+            // 기존에 생성되어 있던 border SVG가 있다면 초기화
+            const existingSvg = element.querySelector('.svg-seamless-border');
+            if (existingSvg) existingSvg.remove();
+
+            const w = element.offsetWidth;
+            const h = element.offsetHeight;
+            if (!w || !h) return;
+
+            const padding = 10; // 테두리 안쪽 여백 설정
+            const uniqueId = 'path-' + Math.random().toString(36).substr(2, 9);
+            
+            // 사각형 모서리를 정방향으로 순환하는 벡터 패스선 설계 (시작점 좌상단 -> 우상단 -> 우하단 -> 좌하단 -> 폐합)
+            const pathD = `M ${padding} ${padding} H ${w - padding} V ${h - padding} H ${padding} Z`;
+            
+            // 텍스트가 끊김 없이 트랙을 가득 채우도록 넉넉하게 반복 배치
+            const perimeter = 2 * (w + h);
+            const repeatCount = Math.ceil(perimeter / 600) + 1; 
+            const repeatedText = text.repeat(repeatCount);
+
+            const svgHtml = `
+                <svg class="svg-seamless-border" width="${w}" height="${h}" style="position: absolute; top: 0; left: 0; pointer-events: none; width: 100%; height: 100%; z-index: 1;">
+                    <path id="${uniqueId}" d="${pathD}" fill="none" stroke="none" />
+                    <text font-size="9px" fill="#bcaec4" font-family="'DM Serif Display', serif" letter-spacing="0.8px" opacity="0.75">
+                        <textPath href="#${uniqueId}">${repeatedText}</textPath>
+                    </text>
+                </svg>
+            `;
+            element.insertAdjacentHTML('afterbegin', svgHtml);
+        }
+
         function renderBooks() {
             bookList.innerHTML = '';
             books.forEach(book => {
@@ -585,11 +585,7 @@
                 albumCard.className = 'album-card';
                 albumCard.onclick = () => showDetail(book);
 
-                // 카드 네 모서리 사방을 완전히 순환하도록 4개의 프레임 요소 배치
                 albumCard.innerHTML = `
-                    <div class="scripture-frame top">Therefore, since we are surrounded</div>
-                    <div class="scripture-frame right">by such a great cloud of witnesses,</div>
-                    <div class="scripture-frame left">the race marked out for us. Heb 12:1</div>
                     <div class="album-case-wrapper">
                         <div class="album-cover-box">
                             <img src="${book.image}" alt="${book.title} 표지" class="album-img">
@@ -600,10 +596,16 @@
                         <div class="album-title">${book.title}</div>
                         <div class="album-referrer">추천인: ${book.referrer}</div>
                     </div>
-                    <div class="scripture-frame bottom">let us run with perseverance</div>
                 `;
                 bookList.appendChild(albumCard);
             });
+
+            // 카드 레이아웃 렌더링 직후 각 요소의 모서리에 텍스트 주입
+            setTimeout(() => {
+                document.querySelectorAll('.album-card').forEach(card => {
+                    applySeamlessTextBorder(card, scriptureText);
+                });
+            }, 50);
         }
 
         function showDetail(book) {
@@ -618,12 +620,31 @@
             mainPage.classList.add('hidden');
             detailPage.classList.remove('hidden');
             window.scrollTo(0, 0);
+
+            // 상세정보 창이 열리고 돔이 구성된 시점에 감싸는 프레임 그리기
+            setTimeout(() => {
+                applySeamlessTextBorder(detailPlayerBox, scriptureText);
+            }, 50);
         }
 
         backBtn.onclick = () => {
             detailPage.classList.add('hidden');
             mainPage.classList.remove('hidden');
+            // 리스트로 돌아왔을 때 깨짐 현상 방지를 위해 재계산
+            document.querySelectorAll('.album-card').forEach(card => {
+                applySeamlessTextBorder(card, scriptureText);
+            });
         };
+
+        // 브라우저 가로길이가 바뀌거나 모바일 회전 시 실시간 테두리 리사이징 매핑
+        window.addEventListener('resize', () => {
+            document.querySelectorAll('.album-card').forEach(card => {
+                applySeamlessTextBorder(card, scriptureText);
+            });
+            if (!detailPage.classList.contains('hidden')) {
+                applySeamlessTextBorder(detailPlayerBox, scriptureText);
+            }
+        });
 
         renderBooks();
     </script>
