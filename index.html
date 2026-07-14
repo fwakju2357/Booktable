@@ -26,6 +26,7 @@
             --text-main: #2b2b2b;
             --text-muted: #76737a;
             --border-color: #eae7ec;
+            --point-red: #ff4d4d; /* 계좌 하이라이트용 레드 */
         }
 
         body {
@@ -41,21 +42,31 @@
         }
 
         /* ==========================================
-           NOTICE BANNER (계좌 안내)
+           NOTICE BANNER (계좌 안내 - 높이 및 크기 확장)
            ========================================== */
         .deposit-notice {
             background-color: var(--point-dark);
             color: #ffffff;
             text-align: center;
-            padding: 0.8rem 1rem;
-            font-size: 0.95rem;
+            padding: 1.4rem 1rem; /* 세로 폭 약 1.5배 확장 */
+            font-size: 1.1rem;    /* 텍스트 크기 확장 */
             font-weight: 500;
             letter-spacing: 0.5px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
         .deposit-notice strong {
-            color: var(--primary-pink);
+            color: var(--point-red); /* 푸른색이 아닌 눈에 띄는 붉은색 계열로 변경 */
             font-weight: 700;
+            cursor: pointer;
+            padding: 0.2rem 0.6rem;
+            background-color: rgba(255, 77, 77, 0.15);
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+        .deposit-notice strong:hover {
+            background-color: rgba(255, 77, 77, 0.3);
+            transform: scale(1.02);
         }
 
         /* ==========================================
@@ -128,17 +139,41 @@
         .album-card {
             background-color: var(--bg-card);
             border-radius: 16px;
-            padding: 1.5rem;
+            padding: 2.2rem 1.5rem 2.2rem 1.5rem; /* 프레임 텍스트 공간 확보를 위해 패딩 조정 */
             border: 1px solid var(--border-color);
             cursor: pointer;
+            position: relative;
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
             text-align: center;
+            overflow: hidden;
         }
 
         .album-card:hover {
             transform: translateY(-6px);
             box-shadow: 0 15px 35px rgba(118, 115, 122, 0.15);
             border-color: #d1cbd4;
+        }
+
+        /* 사각형 테두리에 말씀 각인 스타일 */
+        .scripture-frame {
+            font-size: 0.58rem;
+            color: #bcaec4;
+            font-family: 'DM Serif Display', serif;
+            position: absolute;
+            left: 0;
+            right: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 1rem;
+            opacity: 0.65;
+            letter-spacing: 0.3px;
+        }
+        .scripture-frame.top {
+            top: 0.6rem;
+        }
+        .scripture-frame.bottom {
+            bottom: 0.6rem;
         }
 
         .album-case-wrapper {
@@ -203,10 +238,10 @@
         }
 
         /* ==========================================
-           DETAIL PAGE
+           DETAIL PAGE (가로 레이아웃 및 본문 확장)
            ========================================== */
         #detail-page {
-            max-width: 900px;
+            max-width: 1100px; /* 기존 900px에서 가로 폭 늘림 */
             margin: 0 auto;
             padding: 3rem 5%;
         }
@@ -237,9 +272,11 @@
             align-items: center;
             background-color: var(--bg-card);
             border-radius: 24px;
-            padding: 4rem;
+            padding: 5rem 4rem;
             border: 1px solid var(--border-color);
             box-shadow: 0 20px 40px rgba(118, 115, 122, 0.08);
+            position: relative;
+            overflow: hidden;
         }
 
         .player-visual {
@@ -285,7 +322,7 @@
         }
 
         .player-info {
-            flex: 1.2;
+            flex: 1.5; /* 정보 칸 비율을 넓힘 */
         }
 
         .track-tag {
@@ -334,29 +371,33 @@
             font-weight: 500;
         }
 
+        /* 추천 이유 박스 확장 및 가독성 최적화 */
         .liner-notes {
             background-color: var(--bg-main);
-            padding: 1.5rem;
+            padding: 1.8rem;
             border-radius: 12px;
             border-left: 4px solid var(--primary-pink);
             margin-bottom: 2rem;
+            width: 100%; /* 박스 가로 전체 채우기 */
         }
 
         .liner-notes h3 {
             font-size: 0.85rem;
             color: var(--text-muted);
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.8rem;
             letter-spacing: 0.5px;
         }
 
         #detail-description {
-            font-size: 0.95rem;
+            font-size: 0.98rem;
             color: var(--text-main);
-            line-height: 1.7;
+            line-height: 1.8;
             word-break: keep-all;
+            white-space: pre-wrap; /* 줄 바꿈이 자연스럽고 깔끔하게 유지되도록 처리 */
+            text-align: justify;
         }
 
-        /* 눈에 확 띄는 구매하기 링크 버튼 디자인 */
+        /* 구매하기 링크 버튼 디자인 (문구 괄호 제거) */
         .btn-purchase-link {
             display: block;
             width: 100%;
@@ -384,7 +425,7 @@
         @media (max-width: 850px) {
             .player-layout {
                 flex-direction: column;
-                padding: 2.5rem 1.5rem;
+                padding: 3.5rem 1.5rem;
                 gap: 2.5rem;
             }
             
@@ -406,7 +447,7 @@
 <body>
 
     <div class="deposit-notice">
-        🎵 도서 구매 입금 안내: <strong>하나은행 12989172932607 - 박주영</strong> 으로 입금해 주세요.
+        🎵 도서 구매 입금 안내: <strong onclick="copyToClipboard('하나은행 12989172932607 박주영')" title="클릭하여 계좌번호 복사">하나은행 12989172932607 - 박주영</strong> 을 터치하시면 복사됩니다.
     </div>
 
     <nav class="shop-nav">
@@ -428,6 +469,9 @@
             <button id="back-btn">← BACK TO LIST</button>
             
             <div class="player-layout">
+                <div class="scripture-frame top">Therefore, since we are surrounded by such a great cloud of witnesses, let us throw off everything that hinders and the sin that so easily entangles.</div>
+                <div class="scripture-frame bottom">And let us run with perseverance the race marked out for us. - Hebrews 12:1</div>
+
                 <div class="player-visual">
                     <div class="cd-case">
                         <img id="detail-img" src="" alt="앨범 재킷">
@@ -464,7 +508,7 @@
                     </div>
 
                     <a href="https://docs.google.com/forms/d/e/1FAIpQLSfMhNtgxG1JGuD7zguE2uget_QbyPOny4zZG1JUV0YXjdRiGw/viewform?usp=publish-editor" target="_blank" class="btn-purchase-link">
-                        💝 이 책 구매하기 (구글 신청서 작성)
+                        💝 이 책 구매하기
                     </a>
                 </div>
             </div>
@@ -472,7 +516,6 @@
     </section>
 
     <script>
-        // 시트의 '북테이블 판매가' 데이터를 반영 및 신규 price 필드 추가 ('미정' 도서는 문구 유지)
         const books = [
             {"id": 1, "title": "하나님은 누구를 사랑하실까?", "referrer": "이하임", "image": "image1.jpg", "author": "필 비셔", "publisher": "IVP", "price": "8,000원", "description": "동화책임에도 새친구나 말씀이 어려운 자들이 쉽게 이해하기 쉽도록 그림책으로 되어 있어 더욱 인상에 깊은 책이기에 추천합니다!"},
             {"id": 2, "title": "나를 따르라", "referrer": "박민혁", "image": "image2.jpg", "author": "디트리히 본회퍼", "publisher": "복 있는 사람", "price": "가격 미정 (품절)", "description": "목사님들 설교에서 인용되는 값싼 은혜라는 표현을 이해하기 위한 책이며 이 부분에 대해 지금 세대가 생각해 볼 필요가 있다고 생각해서 추천합니다"},
@@ -500,6 +543,22 @@
         const bookList = document.getElementById('book-list');
         const backBtn = document.getElementById('back-btn');
 
+        // 클립보드 복사 함수 추가
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert("계좌번호가 복사되었습니다!\n(" + text + ")");
+            }).catch(err => {
+                // 구형 브라우저 대응 Fallback
+                const tempInput = document.createElement("input");
+                tempInput.value = text;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand("copy");
+                document.body.removeChild(tempInput);
+                alert("계좌번호가 복사되었습니다!\n(" + text + ")");
+            });
+        }
+
         function renderBooks() {
             bookList.innerHTML = '';
             books.forEach(book => {
@@ -507,7 +566,9 @@
                 albumCard.className = 'album-card';
                 albumCard.onclick = () => showDetail(book);
 
+                // 손가락 이모티콘 제거 및 카드 상하단에 히브리서 12:1 영어 프레임 텍스트 주입
                 albumCard.innerHTML = `
+                    <div class="scripture-frame top">Therefore, since we are surrounded by such a great cloud of witnesses...</div>
                     <div class="album-case-wrapper">
                         <div class="album-cover-box">
                             <img src="${book.image}" alt="${book.title} 표지" class="album-img">
@@ -516,8 +577,9 @@
                     </div>
                     <div class="album-details">
                         <div class="album-title">${book.title}</div>
-                        <div class="album-referrer">✍️ 추천인: ${book.referrer}</div>
+                        <div class="album-referrer">추천인: ${book.referrer}</div>
                     </div>
+                    <div class="scripture-frame bottom">let us run with perseverance the race marked out for us. Hebrews 12:1</div>
                 `;
                 bookList.appendChild(albumCard);
             });
