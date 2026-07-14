@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>그 사람의 하나님 : B-Side Track</title>
+    
+    <!-- 구글 폰트 업데이트: 영문 기하학 산세리프(Montserrat) 및 감성적 본문(Gowun Dodum) 추가 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Noto+Sans+KR:wght@300;400;500;700&family=Gowun+Dodum&display=swap" rel="stylesheet">
     
     <style>
         /* ==========================================
-           RESET & GLOBAL STYLES
+           RESET & GLOBAL STYLES (사진 감성 기반 조율)
            ========================================== */
         * {
             margin: 0;
@@ -19,22 +21,22 @@
         }
 
         :root {
-            --bg-main: #fcfbfd;          
+            --bg-main: #fbf9fa;          /* 사진의 미세한 웜톤 종이 질감을 반영한 베이스 */
             --bg-card: #ffffff;          
-            --primary-pink: #f7cbdc;     
-            --point-dark: #222222;       
-            --text-main: #2b2b2b;
-            --text-muted: #76737a;
-            --border-color: #eae7ec;
-            --point-red: #ff4d4d;
+            --primary-pink: #f5cbdc;     /* 이미지에서 직접 추출한 화사하고 부드러운 핑크 */
+            --point-dark: #111111;       /* 이미지 속 검은 원과 글씨처럼 선명한 매트 블랙 */
+            --text-main: #111111;
+            --text-muted: #888086;       /* 핑크빛이 살짝 도는 감성적인 짙은 회색 */
+            --border-color: #f2e7ec;     /* 부드러운 경계선 */
         }
 
         body {
             background-color: var(--bg-main);
             color: var(--text-main);
             font-family: 'Noto Sans KR', sans-serif;
-            line-height: 1.6;
+            line-height: 1.7;
             overflow-x: hidden;
+            letter-spacing: -0.2px;
         }
 
         .hidden {
@@ -42,31 +44,27 @@
         }
 
         /* ==========================================
-           NOTICE BANNER (계좌 안내 - 오직 번호만 복사)
+           NOTICE BANNER (미니멀 숍 스타일로 변경)
            ========================================== */
         .deposit-notice {
-            background-color: var(--point-dark);
-            color: #ffffff;
+            background-color: var(--primary-pink);
+            color: var(--point-dark);
             text-align: center;
-            padding: 1.4rem 1rem;
-            font-size: 1.1rem;
+            padding: 1.1rem 1rem;
+            font-size: 0.95rem;
             font-weight: 500;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            border-bottom: 1px solid var(--border-color);
         }
         .deposit-notice strong {
-            color: var(--point-red);
             font-weight: 700;
             cursor: pointer;
-            padding: 0.2rem 0.6rem;
-            background-color: rgba(255, 77, 77, 0.15);
-            border-radius: 6px;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            padding: 0.1rem 0.3rem;
             transition: all 0.2s ease;
-            display: inline-block;
         }
         .deposit-notice strong:hover {
-            background-color: rgba(255, 77, 77, 0.3);
-            transform: scale(1.02);
+            opacity: 0.7;
         }
 
         /* ==========================================
@@ -76,9 +74,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 5%;
+            padding: 1.8rem 5%;
             border-bottom: 1px solid var(--border-color);
-            background-color: rgba(252, 251, 253, 0.9);
+            background-color: rgba(251, 249, 250, 0.85);
             backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
@@ -86,32 +84,31 @@
         }
 
         .shop-nav .logo {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: 700;
             color: var(--point-dark);
-            letter-spacing: -0.5px;
         }
 
         .shop-nav .subtitle {
-            font-size: 0.8rem;
-            font-weight: 500;
+            font-size: 0.75rem;
+            font-weight: 600;
             color: var(--text-muted);
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
 
         /* ==========================================
-           HEADER SECTION
+           HEADER SECTION (그라데이션 과하지 않게 정리)
            ========================================== */
         .shop-header {
             text-align: center;
-            padding: 5rem 1rem 3rem 1rem;
-            background: radial-gradient(circle at center, var(--primary-pink) 0%, transparent 70%);
-            background-size: 100% 400px;
+            padding: 6rem 1rem 4rem 1rem;
+            background: radial-gradient(circle at center, rgba(245, 203, 220, 0.5) 0%, transparent 65%);
+            background-size: 100% 500px;
             background-repeat: no-repeat;
         }
 
         .brand-title {
-            font-size: 2.5rem;
+            font-size: 2.6rem;
             font-weight: 700;
             color: var(--point-dark);
             margin-bottom: 0.8rem;
@@ -120,44 +117,44 @@
 
         .brand-subtitle {
             color: var(--text-muted);
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 400;
+            letter-spacing: -0.3px;
         }
 
         /* ==========================================
-           ALBUM GRID & CARD
+           ALBUM GRID & CARD (인디 바이닐 플랫 스타일)
            ========================================== */
         .album-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 3rem 2rem;
+            gap: 3.5rem 2.2rem;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 5% 5rem 5%;
+            padding: 0 5% 6rem 5%;
         }
 
         .album-card {
             background-color: var(--bg-card);
-            border-radius: 16px;
-            padding: 2.2rem 2rem;
+            border-radius: 12px; /* 살짝 각진 느낌으로 단정하게 */
+            padding: 2.4rem 2rem;
             border: 1px solid var(--border-color);
             cursor: pointer;
-            position: relative; /* SVG 안착용 기준점 */
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+            position: relative;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.3s;
             text-align: center;
-            overflow: hidden;
         }
 
         .album-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 15px 35px rgba(118, 115, 122, 0.15);
-            border-color: #d1cbd4;
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(139, 128, 134, 0.1);
+            border-color: var(--primary-pink);
         }
 
         .album-case-wrapper {
             position: relative;
-            width: 82%;
-            margin: 0.6rem auto 1.5rem auto;
+            width: 85%;
+            margin: 0.5rem auto 1.8rem auto;
             aspect-ratio: 1 / 1;
         }
 
@@ -167,7 +164,7 @@
             position: relative;
             border-radius: 50%;
             overflow: hidden;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
             border: 1px solid var(--border-color);
         }
 
@@ -178,25 +175,25 @@
             transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
+        /* LP 중앙 홀을 이미지 내부의 검은 원처럼 매칭 */
         .album-vinyl-effect {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 24px;
-            height: 24px;
+            width: 26px;
+            height: 26px;
             background-color: var(--point-dark);
             border-radius: 50%;
-            border: 4px solid var(--bg-card);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            border: 5px solid var(--bg-card);
         }
 
         .album-card:hover .album-img {
-            transform: scale(1.08) rotate(15deg);
+            transform: scale(1.05) rotate(10deg);
         }
 
         .album-details {
-            padding-top: 0.5rem;
+            padding-top: 0.2rem;
             position: relative;
             z-index: 2;
         }
@@ -218,44 +215,43 @@
         }
 
         /* ==========================================
-           DETAIL PAGE (가로폭 확장 레이아웃)
+           DETAIL PAGE (작품 도록 레이아웃)
            ========================================== */
         #detail-page {
-            max-width: 1100px;
+            max-width: 1050px;
             margin: 0 auto;
             padding: 3rem 5%;
         }
 
         #back-btn {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 0.6rem 1.2rem;
+            background: transparent;
+            border: 1px solid var(--point-dark);
+            color: var(--point-dark);
+            padding: 0.5rem 1.4rem;
             border-radius: 30px;
             cursor: pointer;
-            font-weight: 500;
-            font-size: 0.85rem;
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
             transition: all 0.2s ease;
             margin-bottom: 2.5rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
 
         #back-btn:hover {
-            border-color: var(--point-dark);
             background-color: var(--point-dark);
             color: #ffffff;
         }
 
         .player-layout {
             display: flex;
-            gap: 4rem;
+            gap: 4.5rem;
             align-items: center;
             background-color: var(--bg-card);
-            border-radius: 24px;
-            padding: 5rem 4.5rem;
+            border-radius: 16px;
+            padding: 5.5rem 4.5rem;
             border: 1px solid var(--border-color);
-            box-shadow: 0 20px 40px rgba(118, 115, 122, 0.08);
-            position: relative; /* SVG 안착용 기준점 */
+            box-shadow: 0 30px 60px rgba(139, 128, 134, 0.06);
+            position: relative;
             overflow: hidden;
         }
 
@@ -263,36 +259,37 @@
             flex: 1;
             display: flex;
             justify-content: center;
-            min-width: 280px;
+            min-width: 290px;
             position: relative;
             z-index: 2;
         }
 
+        /* 앨범 테두리 서클라인을 이미지 피드백을 반영해 뚜렷하게 수정 */
         .cd-case {
             position: relative;
-            width: 280px;
-            height: 280px;
+            width: 290px;
+            height: 290px;
             border-radius: 50%;
             overflow: hidden;
-            border: 12px solid var(--primary-pink);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-            animation: rotateCD 25s linear infinite;
+            border: 10px solid var(--primary-pink);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.05);
+            animation: rotateCD 30s linear infinite;
         }
 
         #detail-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.9;
         }
 
+        /* 이미지 한가운데 박힌 Black Dot 감성을 고스란히 이식 */
         .cd-circle-overlay {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 45px;
-            height: 45px;
+            width: 44px;
+            height: 44px;
             background-color: var(--point-dark);
             border-radius: 50%;
             border: 6px solid #ffffff;
@@ -304,7 +301,7 @@
         }
 
         .player-info {
-            flex: 1.5;
+            flex: 1.4;
             position: relative;
             z-index: 2;
         }
@@ -313,25 +310,25 @@
             font-size: 0.75rem;
             color: var(--text-muted);
             font-weight: 700;
-            letter-spacing: 1.5px;
-            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 0.6rem;
         }
 
         #detail-title {
-            font-size: 2rem;
+            font-size: 2.1rem;
             font-weight: 700;
-            line-height: 1.4;
+            line-height: 1.35;
             margin-bottom: 2rem;
             color: var(--point-dark);
             border-bottom: 2px solid var(--point-dark);
-            padding-bottom: 1rem;
+            padding-bottom: 1.2rem;
             word-break: keep-all;
         }
 
         .meta-table {
             display: flex;
             flex-direction: column;
-            gap: 0.8rem;
+            gap: 0.9rem;
             margin-bottom: 2.5rem;
         }
 
@@ -351,55 +348,56 @@
 
         .meta-value {
             font-size: 0.95rem;
-            color: var(--text-main);
-            font-weight: 500;
+            color: var(--point-dark);
+            font-weight: 600;
         }
 
-        /* 추천 이유 박스 최적화 */
+        /* 라이너 노트(추천사) 박스를 정갈하게 튜닝 */
         .liner-notes {
             background-color: var(--bg-main);
-            padding: 1.8rem;
-            border-radius: 12px;
-            border-left: 4px solid var(--primary-pink);
-            margin-bottom: 2rem;
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--point-dark);
+            margin-bottom: 2.2rem;
             width: 100%;
         }
 
         .liner-notes h3 {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
             margin-bottom: 0.8rem;
             letter-spacing: 0.5px;
+            font-weight: 700;
         }
 
         #detail-description {
-            font-size: 0.98rem;
+            font-size: 0.95rem;
             color: var(--text-main);
-            line-height: 1.8;
+            line-height: 1.85;
             word-break: keep-all;
             white-space: pre-wrap;
             text-align: justify;
         }
 
+        /* 쇼핑몰 흔적을 지우고 앨범 아트 무드와 연결되는 딥 블랙 버튼 선언 */
         .btn-purchase-link {
             display: block;
             width: 100%;
-            background: linear-gradient(135deg, #ff477e, #ff6b6b);
+            background: var(--point-dark);
             color: white;
             text-decoration: none;
             padding: 1.2rem;
-            border-radius: 12px;
-            font-size: 1.2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
             font-weight: 700;
-            box-shadow: 0 8px 20px rgba(255, 71, 126, 0.3);
+            letter-spacing: 0.5px;
             transition: all 0.3s ease;
             text-align: center;
         }
 
         .btn-purchase-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 26px rgba(255, 71, 126, 0.4);
-            filter: brightness(1.05);
+            transform: translateY(-2px);
+            opacity: 0.9;
         }
 
         /* ==========================================
@@ -411,31 +409,27 @@
                 padding: 4rem 2rem;
                 gap: 2.5rem;
             }
-            
             .player-visual {
                 min-width: unset;
             }
-            
             .cd-case {
-                width: 240px;
-                height: 240px;
+                width: 250px;
+                height: 250px;
             }
-            
             .brand-title {
-                font-size: 2rem;
+                font-size: 2.1rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- 터치 시 숫자 정보만 매개변수로 전송 -->
     <div class="deposit-notice">
-        🎵 도서 구매 입금 안내: <strong onclick="copyToClipboard('12989172932607')" title="터치하여 계좌번호 복사">하나은행 12989172932607 - 박주영</strong> 을 터치하시면 복사됩니다.
+        🎵 도서 구매 입금 안내: <strong onclick="copyToClipboard('12989172932607')" title="터치하여 계좌번호 복사">하나은행 12989172932607 (박주영)</strong> 을 터치하시면 계좌번호만 바로 복사됩니다.
     </div>
 
     <nav class="shop-nav">
-        <div class="logo"> 그 사람의 하나님 : B-Side Track</div>
+        <div class="logo">그 사람의 하나님 : B-Side Track</div>
         <div class="subtitle">BOOKS AS MUSIC ALBUMS</div>
     </nav>
 
@@ -452,7 +446,6 @@
         <div class="detail-container">
             <button id="back-btn">← BACK TO LIST</button>
             
-            <!-- 끊김 없는 말씀 프레임이 적용될 타겟 컨테이너 -->
             <div class="player-layout" id="detail-player-box">
                 <div class="player-visual">
                     <div class="cd-case">
@@ -480,7 +473,7 @@
                         </div>
                         <div class="meta-row">
                             <span class="meta-label">PRICE / 판매가</span>
-                            <span id="detail-price" class="meta-value" style="color: #ff477e; font-weight: 700;"></span>
+                            <span id="detail-price" class="meta-value" style="color: var(--point-dark); font-weight: 700;"></span>
                         </div>
                     </div>
                     
@@ -490,7 +483,7 @@
                     </div>
 
                     <a href="https://docs.google.com/forms/d/e/1FAIpQLSfMhNtgxG1JGuD7zguE2uget_QbyPOny4zZG1JUV0YXjdRiGw/viewform?usp=publish-editor" target="_blank" class="btn-purchase-link">
-                        💝 이 책 구매하기
+                        💝 이 책 소장하기 (신청서 작성)
                     </a>
                 </div>
             </div>
@@ -498,6 +491,7 @@
     </section>
 
     <script>
+        // 기존 데이터셋 동일하게 유지
         const books = [
             {"id": 1, "title": "하나님은 누구를 사랑하실까?", "referrer": "이하임", "image": "image1.jpg", "author": "필 비셔", "publisher": "IVP", "price": "8,000원", "description": "동화책임에도 새친구나 말씀이 어려운 자들이 쉽게 이해하기 쉽도록 그림책으로 되어 있어 더욱 인상에 깊은 책이기에 추천합니다!"},
             {"id": 2, "title": "나를 따르라", "referrer": "박민혁", "image": "image2.jpg", "author": "디트리히 본회퍼", "publisher": "복 있는 사람", "price": "가격 미정 (품절)", "description": "목사님들 설교에서 인용되는 값싼 은혜라는 표현을 이해하기 위한 책이며 이 부분에 대해 지금 세대가 생각해 볼 필요가 있다고 생각해서 추천합니다"},
@@ -509,7 +503,7 @@
             {"id": 8, "title": "죄 죽이기", "referrer": "이지환", "image": "image8.jpg", "author": "존 오웬", "publisher": "CH북스", "price": "7,000원", "description": "인간의 가장 큰 문제인 죄를 이기는 방법에 대해 다룬 청교도 도서입니다. 우리가 어떻게 경건 생활을 이어나가야 하는지 알고 실천에 옮길 수 있습니다."},
             {"id": 9, "title": "전능자의 그늘", "referrer": "손주현", "image": "image9.jpg", "author": "엘리자베스 엘리엇", "publisher": "복있는사람", "price": "12,000원", "description": "선교팀이거나 선교에 대해 알아보고 싶은 사람들을 위해 추천합니다."},
             {"id": 10, "title": "연애학교", "referrer": "박주영(남)", "image": "image10.jpg", "author": "게리 토마스", "publisher": "CUP", "price": "12,000원", "description": "공동체에 연애 관심이 있는 사람이 많은 만큼 올바른 연애 가치관을 배울 수 있는 책이 필요합니다"},
-            {"id": 11, "title": "결혼수업", "referrer": "송예원", "image": "image11.jpg", "author": "게리 토마스", "publisher": "CUP", "price": "12,000원", "description": "하나님과의 관계를 바탕으로 건강한 인간관계를 만들어 가는 데 도움이 되는 책입니다."},
+            {"id": 11, "title": "관계수업", "referrer": "송예원", "image": "image11.jpg", "author": "게리 토마스", "publisher": "CUP", "price": "12,000원", "description": "하나님과의 관계를 바탕으로 건강한 인간관계를 만들어 가는 데 도움이 되는 책입니다."},
             {"id": 12, "title": "슬로우 영성", "referrer": "송예원", "image": "image12.jpg", "author": "존 마크 코머", "publisher": "두란노", "price": "12,000원", "description": "바쁜 일상 속에서도 하나님과 함께하는 삶의 리듬을 회복하도록 돕는 책입니다."},
             {"id": 13, "title": "선하신 하나님", "referrer": "김재달 목사님", "image": "image13.jpg", "author": "마이클 리브스", "publisher": "복있는사람", "price": "12,000원", "description": "삼위일체 교리와 기독론을 우리 삶과 신앙에 이토록 적실하게 쓴 책을 본 적이 없습니다. :)"},
             {"id": 14, "title": "기도는 예배다", "referrer": "이정우 목사님", "image": "image14.jpg", "author": "존 파이퍼, 존 맥아더, R. C. 스프로울", "publisher": "생명의말씀사", "price": "12,000원", "description": "기도는 아무리 강조해도 지나치지 않습니다. 하지만 기도가 무엇인지 잘 모르는 경우가 많습니다. 수련회에서 기도 많이 하셔야 하실 텐데 기도에 관한 책 중 쉽게 읽을만한 책을 한 권 추천해 드립니다."},
@@ -520,8 +514,8 @@
             {"id": 19, "title": "내 마음 그리스도의 집", "referrer": "간사즈", "image": "image19.jpg", "author": "로버트 멍어", "publisher": "IVP", "price": "8,000원", "description": "예수님에 대해 막 알아가고 계신 분에게도, 신앙생활을 오래 해온 분들에게도 추천합니다.어려운 말 하나 없이 그림과 함께 보는 짧고 단순한 이야기이지만, 예수님을 모르고, 잊고, 떄로는 피하며 살던 모든 순간에 여전히 애닳는 사랑으로 여러분을 기다리고 계시는 예수님을 마주하게 되는 책입니다."}
         ];
 
-        // 회전하며 네 모서리를 감쌀 고정 성경말씀 텍스트 정의
-        const scriptureText = "Therefore, since we are surrounded by such a great cloud of witnesses, let us throw off everything that hinders and the sin that so easily entangles. And let us run with perseverance the race marked out for us. Hebrews 12:1 — ";
+        // 이미지 속 감성을 그대로 살리기 위해 소문자 위주의 깔끔한 텍스트 배치가 매칭되도록 구성
+        const scriptureText = "therefore, since we are surrounded by such a great cloud of witnesses, let us run with perseverance the race marked out for us. hebrews 12:1  —  ";
 
         const mainPage = document.getElementById('main-page');
         const detailPage = document.getElementById('detail-page');
@@ -529,7 +523,6 @@
         const backBtn = document.getElementById('back-btn');
         const detailPlayerBox = document.getElementById('detail-player-box');
 
-        // 오직 숫자만 깔끔하게 복사되도록 핸들링
         function copyToClipboard(accountNumber) {
             navigator.clipboard.writeText(accountNumber).then(() => {
                 alert("계좌번호가 복사되었습니다!\n" + accountNumber);
@@ -544,11 +537,9 @@
             });
         }
 
-        // 박스 실시간 크기에 맞춰 끊김 없이 돌아가는 SVG 텍스트 패스를 생성하는 함수
+        // 이미지 속 폰트 무드(Montserrat)를 테두리 SVG 패스에 주입
         function applySeamlessTextBorder(element, text) {
             if (!element) return;
-            
-            // 기존에 생성되어 있던 border SVG가 있다면 초기화
             const existingSvg = element.querySelector('.svg-seamless-border');
             if (existingSvg) existingSvg.remove();
 
@@ -556,13 +547,10 @@
             const h = element.offsetHeight;
             if (!w || !h) return;
 
-            const padding = 10; // 테두리 안쪽 여백 설정
+            const padding = 10; 
             const uniqueId = 'path-' + Math.random().toString(36).substr(2, 9);
-            
-            // 사각형 모서리를 정방향으로 순환하는 벡터 패스선 설계 (시작점 좌상단 -> 우상단 -> 우하단 -> 좌하단 -> 폐합)
             const pathD = `M ${padding} ${padding} H ${w - padding} V ${h - padding} H ${padding} Z`;
             
-            // 텍스트가 끊김 없이 트랙을 가득 채우도록 넉넉하게 반복 배치
             const perimeter = 2 * (w + h);
             const repeatCount = Math.ceil(perimeter / 600) + 1; 
             const repeatedText = text.repeat(repeatCount);
@@ -570,7 +558,7 @@
             const svgHtml = `
                 <svg class="svg-seamless-border" width="${w}" height="${h}" style="position: absolute; top: 0; left: 0; pointer-events: none; width: 100%; height: 100%; z-index: 1;">
                     <path id="${uniqueId}" d="${pathD}" fill="none" stroke="none" />
-                    <text font-size="9px" fill="#bcaec4" font-family="'DM Serif Display', serif" letter-spacing="0.8px" opacity="0.75">
+                    <text font-size="9px" fill="var(--text-muted)" font-family="'Montserrat', sans-serif" font-weight="400" letter-spacing="0.5px" opacity="0.6">
                         <textPath href="#${uniqueId}">${repeatedText}</textPath>
                     </text>
                 </svg>
@@ -600,7 +588,6 @@
                 bookList.appendChild(albumCard);
             });
 
-            // 카드 레이아웃 렌더링 직후 각 요소의 모서리에 텍스트 주입
             setTimeout(() => {
                 document.querySelectorAll('.album-card').forEach(card => {
                     applySeamlessTextBorder(card, scriptureText);
@@ -621,7 +608,6 @@
             detailPage.classList.remove('hidden');
             window.scrollTo(0, 0);
 
-            // 상세정보 창이 열리고 돔이 구성된 시점에 감싸는 프레임 그리기
             setTimeout(() => {
                 applySeamlessTextBorder(detailPlayerBox, scriptureText);
             }, 50);
@@ -630,13 +616,11 @@
         backBtn.onclick = () => {
             detailPage.classList.add('hidden');
             mainPage.classList.remove('hidden');
-            // 리스트로 돌아왔을 때 깨짐 현상 방지를 위해 재계산
             document.querySelectorAll('.album-card').forEach(card => {
                 applySeamlessTextBorder(card, scriptureText);
             });
         };
 
-        // 브라우저 가로길이가 바뀌거나 모바일 회전 시 실시간 테두리 리사이징 매핑
         window.addEventListener('resize', () => {
             document.querySelectorAll('.album-card').forEach(card => {
                 applySeamlessTextBorder(card, scriptureText);
